@@ -49,8 +49,12 @@ if (!exists("dataset"))
 
 # Determine number of characters in the phrase
 NumCharactersInPhrase = unlist(lapply(dataset$Phrase, nchar))
-
 dataset = cbind(dataset, NumCharactersInPhrase)
+
+# Determine number of words in the phrase
+NumWordsInPhrase = unlist(lapply(strsplit(dataset$Phrase, " "), length))
+dataset = cbind(dataset, NumWordsInPhrase)
+
 
 #####################
 # Predict sentiment
