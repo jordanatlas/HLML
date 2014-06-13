@@ -55,6 +55,9 @@ dataset = cbind(dataset, NumCharactersInPhrase)
 NumWordsInPhrase = unlist(lapply(strsplit(dataset$Phrase, " "), length))
 dataset = cbind(dataset, NumWordsInPhrase)
 
+# Determine max word length in the phrase
+MaxWordLengthInPhrase = unlist(lapply(lapply(strsplit(dataset$Phrase, " "), nchar), max))
+dataset = cbind(dataset, MaxWordLengthInPhrase)
 
 #####################
 # Predict sentiment
