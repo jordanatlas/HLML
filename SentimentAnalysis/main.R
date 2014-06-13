@@ -4,6 +4,7 @@ library("plyr") # compute counts in aggregates
 # inputs
 PathTestData = "test.tsv";
 PathTrainingData = "train.tsv";
+emptySentiment = -1;  # value to indicate empty sentiment value in test set
 
 #####################
 # Load data
@@ -31,10 +32,10 @@ loadData <- function(testDataPath, trainingDataPath)
   
   
   # combine test and train set into data
-  Sentiment = rep(as.integer(NA), nrow(test))
+  Sentiment = rep(as.integer(emptySentiment), nrow(test))
   test <- cbind(test, Sentiment)
   data <- rbind(train, test)
-  Predicted_Sentiment <- rep(as.integer(NA), nrow(data))
+  Predicted_Sentiment <- rep(as.integer(emptySentiment), nrow(data))
   data <- cbind(data, Predicted_Sentiment)
 }
 
