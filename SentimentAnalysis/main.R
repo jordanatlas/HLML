@@ -18,6 +18,8 @@ loadData <- function(testDataPath, trainingDataPath)
                      comment.char = "",
                      quote = "",
                      colClasses = c("integer","integer","character"))
+   
+  # hello world
   
   # parse training set
   train <- read.table(PathTrainingData,
