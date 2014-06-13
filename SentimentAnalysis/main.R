@@ -92,5 +92,3 @@ test$Sentiment = emptySentiment
 # write csv
 write.csv(test, file = outputTestData)
 write.csv(train, file = outputTrainingData)
-
-write.csv(dataset[!is.na(dataset$Sentiment),], file = outputTrainingData )
