@@ -43,6 +43,19 @@ loadData <- function(testDataPath, trainingDataPath)
 
 dataset = loadData(inputTestData, inputTrainingData)
 
+##############################################################################
+# Load features - Load features from external sources for cases where feature
+# calculation is expensive. Combine these features with our dataset.
+# NOTE: Currently assuming that feature data has all rows from train and test in
+# same order as train and test.  THis might not be safe for all new features 
+# going forward
+##############################################################################
+
+polarityFeatureData <- "train_test_polarity.csv"
+polarity <- read.csv(polarityFeatureData)
+dataset <- cbind(dataset, polarity$polarity.avg)
+
+
 #####################
 # Calculate features
 #####################
@@ -63,8 +76,8 @@ dataset = cbind(dataset, MaxWordLengthInPhrase)
 # Train model
 #####################
 
-model = multinom(Sentiment ~ NumCharactersInPhrase + NumWordsInPhrase + MaxWordLengthInPhrase,
-                 data = train,
+model = multinom(Sentiment ~ NumCharactersInPhrase + NumWordsInPhrase + MaxWordLengthInPhrase + polarity$polarity.avg,
+                 data = dataset,
                  na.rm = TRUE)  # only use training set to train model
 
 #####################
@@ -86,7 +99,7 @@ accuracy = round(mean(dataset$Sentiment == dataset$Predicted_Sentiment, na.rm = 
 test = dataset[is.na(dataset$Sentiment),]
 train = dataset[!is.na(dataset$Sentiment),]
 
-# set Sentiment = NA to numeric value so easier to import to other tools
+# set Sentiment = emptySentiment to numeric value so easier to import to other tools
 test$Sentiment = emptySentiment
 
 # write csv
