@@ -1,0 +1,2 @@
+weka1 - Treat class variable as nominal, train J48 tree with minimum leaf size of 10.
+weka2 - Treat class variable as nominal, train J48 tree with minimum leaf size of 100.
