@@ -1,5 +1,5 @@
 # packages
-require("plyr") # compute counts in aggregates
+require("plyr") # package to compute counts in aggregates
 require("nnet") # multinomial models package
 
 # constants
