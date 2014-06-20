@@ -73,6 +73,11 @@ MaxWordLengthInPhrase = unlist(lapply(lapply(strsplit(dataset$Phrase, " "), ncha
 dataset = cbind(dataset, MaxWordLengthInPhrase)
 
 #####################
+# Data summary
+#####################
+summary(dataset)
+
+#####################
 # Train model
 #####################
 
