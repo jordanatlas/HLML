@@ -1,4 +1,4 @@
-# packages
+# required packages 
 require("plyr") # package to compute counts in aggregates
 require("nnet") # multinomial models package
 
