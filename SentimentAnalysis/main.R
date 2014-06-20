@@ -6,7 +6,10 @@ require("nnet") # multinomial models
 inputTestData <- "test.tsv"
 inputTrainingData <- "train.tsv"
 outputTestData <- "test_output.csv"
+outputTestDataKaggle <- "test_output_kaggle.csv"
+outputTestDataWeka <- "test_output_weka.csv"
 outputTrainingData <- "train_output.csv"
+outputTrainDataWeka <- "train_output_weka.csv"
 emptySentiment <- -1  # set in the final output stage for Sentiment = NA
 
 ##############################################################################
@@ -125,4 +128,13 @@ test$Sentiment = emptySentiment
 write.csv(test, file = outputTestData, row.names = FALSE)
 write.csv(train, file = outputTrainingData, row.names = FALSE)
 
-# write weka csv
+# write kaggle test output csv
+test_kaggle <- test[, c('PhraseId', 'Predicted_Sentiment')]
+colnames(test_kaggle) <- c("PhraseId", "Sentiment")
+write.csv(test_kaggle, file = outputTestDataKaggle, row.names = FALSE)
+
+# write weka friendly output
+test_weka = subset(test, select=-c(Phrase,Predicted_Sentiment))
+train_weka = subset(train, select=-c(Phrase,Predicted_Sentiment))
+write.csv(test_weka, file = outputTestDataWeka, row.names = FALSE)
+write.csv(train_weka, file = outputTrainDataWeka, row.names = FALSE)
