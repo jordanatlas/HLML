@@ -64,23 +64,23 @@ dataset <- cbind(dataset, polarity$polarity.avg)
 #####################
 
 # Determine number of characters in the phrase
-NumCharactersInPhrase = unlist(lapply(dataset$Phrase, nchar))
+NumCharactersInPhrase = sapply(dataset$Phrase, nchar)
 dataset = cbind(dataset, NumCharactersInPhrase)
 
 # Determine number of words in the phrase
-NumWordsInPhrase = unlist(lapply(strsplit(dataset$Phrase, " "), length))
+NumWordsInPhrase = sapply(strsplit(dataset$Phrase, " "), length)
 dataset = cbind(dataset, NumWordsInPhrase)
 
 # Determine max word length in the phrase
-MaxWordLengthInPhrase = unlist(lapply(lapply(strsplit(dataset$Phrase, " "), nchar), max))
+MaxWordLengthInPhrase = sapply(lapply(strsplit(dataset$Phrase, " "), nchar), max)
 dataset = cbind(dataset, MaxWordLengthInPhrase)
 
 # Determine which phrases have a "!"
-ContainsExclamation = unlist(lapply(dataset$Phrase, grepl, "!"))
+ContainsExclamation = sapply(dataset$Phrase, grepl, "!")
 dataset = cbind(dataset, ContainsExclamation)
 
 # Determine which phrases have a "#"
-ContainsPound = unlist(lapply(dataset$Phrase, grepl, "#"))
+ContainsPound = sapply(dataset$Phrase, grepl, "#")
 dataset = cbind(dataset, ContainsPound)
 
 
@@ -102,7 +102,8 @@ model = multinom(Sentiment ~ NumCharactersInPhrase + NumWordsInPhrase + MaxWordL
 # Predict
 #####################
 
-dataset$Predicted_Sentiment = predict(model, dataset)
+prediction = predict(model, dataset)
+dataset$Predicted_Sentiment = as.integer(as.character(prediction))
 
 #####################
 # Validate
