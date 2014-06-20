@@ -134,7 +134,8 @@ colnames(test_kaggle) <- c("PhraseId", "Sentiment")
 write.csv(test_kaggle, file = outputTestDataKaggle, row.names = FALSE)
 
 # write weka friendly output
-test_weka = subset(test, select=-c(Phrase,Predicted_Sentiment))
-train_weka = subset(train, select=-c(Phrase,Predicted_Sentiment))
+test_weka = subset(test, select=-c(PhraseId,SentenceId,Phrase,Predicted_Sentiment))
+test_weka$Sentiment = 2
+train_weka = subset(train, select=-c(PhraseId,SentenceId,Phrase,Predicted_Sentiment))
 write.csv(test_weka, file = outputTestDataWeka, row.names = FALSE)
 write.csv(train_weka, file = outputTrainDataWeka, row.names = FALSE)
