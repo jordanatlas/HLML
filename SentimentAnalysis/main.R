@@ -122,5 +122,7 @@ train = dataset[!is.na(dataset$Sentiment),]
 test$Sentiment = emptySentiment
 
 # write generic csv
-write.csv(test, file = outputTestData)
-write.csv(train, file = outputTrainingData)
+write.csv(test, file = outputTestData, row.names = FALSE)
+write.csv(train, file = outputTrainingData, row.names = FALSE)
+
+# write weka csv
