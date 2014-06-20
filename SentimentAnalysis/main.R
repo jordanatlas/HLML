@@ -72,6 +72,15 @@ dataset = cbind(dataset, NumWordsInPhrase)
 MaxWordLengthInPhrase = unlist(lapply(lapply(strsplit(dataset$Phrase, " "), nchar), max))
 dataset = cbind(dataset, MaxWordLengthInPhrase)
 
+# Determine which phrases have a "!"
+ContainsExclamation = unlist(lapply(dataset$Phrase, grepl, "!"))
+dataset = cbind(dataset, ContainsExclamation)
+
+# Determine which phrases have a "#"
+ContainsPound = unlist(lapply(dataset$Phrase, grepl, "#"))
+dataset = cbind(dataset, ContainsPound)
+
+
 #####################
 # Data summary
 #####################
@@ -81,7 +90,8 @@ summary(dataset)
 # Train model
 #####################
 
-model = multinom(Sentiment ~ NumCharactersInPhrase + NumWordsInPhrase + MaxWordLengthInPhrase + polarity$polarity.avg,
+model = multinom(Sentiment ~ NumCharactersInPhrase + NumWordsInPhrase + MaxWordLengthInPhrase + polarity$polarity.avg
+                 + ContainsExclamation + ContainsPound,
                  data = dataset,
                  na.rm = TRUE)  # only use training set to train model
 
