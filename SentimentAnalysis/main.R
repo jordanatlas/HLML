@@ -111,12 +111,16 @@ accuracy = round(mean(dataset$Sentiment == dataset$Predicted_Sentiment, na.rm = 
 # Output
 #####################
 
+# Reorder dataset so that Sentiment is last
+numcol <- ncol(dataset)
+dataset <- dataset[,c(1,2,3,6:numcol,5,4)]
+
 test = dataset[is.na(dataset$Sentiment),]
 train = dataset[!is.na(dataset$Sentiment),]
 
 # set Sentiment = emptySentiment to numeric value so easier to import to other tools
 test$Sentiment = emptySentiment
 
-# write csv
+# write generic csv
 write.csv(test, file = outputTestData)
 write.csv(train, file = outputTrainingData)
