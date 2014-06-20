@@ -1,6 +1,6 @@
 # packages
 require("plyr") # compute counts in aggregates
-require("nnet") # multinomial models
+require("nnet") # multinomial models package
 
 # constants
 inputTestData <- "test.tsv"
@@ -135,7 +135,7 @@ write.csv(test_kaggle, file = outputTestDataKaggle, row.names = FALSE)
 
 # write weka friendly output
 test_weka = subset(test, select=-c(PhraseId,SentenceId,Phrase,Predicted_Sentiment))
-test_weka$Sentiment = 2
+test_weka$Sentiment = '?'
 train_weka = subset(train, select=-c(PhraseId,SentenceId,Phrase,Predicted_Sentiment))
 write.csv(test_weka, file = outputTestDataWeka, row.names = FALSE)
 write.csv(train_weka, file = outputTrainDataWeka, row.names = FALSE)
